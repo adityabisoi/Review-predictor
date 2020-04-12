@@ -7,3 +7,15 @@ dataset = pd.read_csv('Restaurant_Reviews.tsv', delimiter='\t', quoting=3)   #De
 # Cleaning texts
 import re
 review = re.sub('[^a-zA-Z]', ' ', dataset['Review'][0])
+review = review.lower()
+
+# Removing non-determiners
+import nltk
+nltk.download('stopwords')
+from nltk.corpus import stopwords
+review = review.split()
+words = stopwords.words('english')
+review = [i for i in review if i not in set(words)]    # set() is optional, can be used for faster filtering
+
+
+
