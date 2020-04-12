@@ -9,13 +9,13 @@ import re
 review = re.sub('[^a-zA-Z]', ' ', dataset['Review'][0])
 review = review.lower()
 
-# Removing non-determiners
+# Removing non-determiners and stemming
 import nltk
 nltk.download('stopwords')
 from nltk.corpus import stopwords
+from nltk.stem.porter import PorterStemmer
 review = review.split()
 words = stopwords.words('english')
-review = [i for i in review if i not in set(words)]    # set() is optional, can be used for faster filtering
-
-
-
+ps = PorterStemmer()
+review = [ps.stem(i) for i in review if i not in set(words)]    # set() is optional, can be used for faster filtering
+review = ' '.join(review)
