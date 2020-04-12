@@ -22,3 +22,9 @@ for x in range(0, 1000):
     review = [ps.stem(i) for i in review if i not in set(words)]    # set() is optional, can be used for faster filtering
     review = ' '.join(review)
     corpus.append(review)
+    
+# Creating a Bag of Words model
+from sklearn.feature_extraction.text import CountVectorizer
+cv = CountVectorizer(max_features = 1500)                           # 1500 most frequent words
+X = cv.fit_transform(corpus).toarray()                              # toarray() is used to convert into matrix
+y = dataset.iloc[:,1].values
